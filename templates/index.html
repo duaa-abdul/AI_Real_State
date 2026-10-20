@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EstateAI | Smart Real Estate</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">Estate<span>AI</span></a>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#predict">Price Prediction</a>
+            <a href="#recommend">Recommendations</a>
+            <a href="#assistant">AI Assistant</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div>
+                <p class="eyebrow">SMART PROPERTY INTELLIGENCE</p>
+                <h1>Find your next property with <span>AI.</span></h1>
+                <p>Explore property data, estimate prices, discover suitable
+                    homes, and ask our AI real estate assistant.</p>
+                <a class="primary-btn" href="#predict">Estimate a property</a>
+            </div>
+            <div class="hero-icon">⌂</div>
+        </section>
+
+        <section id="dashboard" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">PROPERTY OVERVIEW</p>
+                    <h2>Real Estate Dashboard</h2>
+                </div>
+                <span class="pill">Sample dataset</span>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <p>Total Properties</p>
+                    <h3 id="totalProperties">--</h3>
+                </article>
+                <article class="stat-card">
+                    <p>Average Price</p>
+                    <h3 id="averagePrice">--</h3>
+                </article>
+                <article class="stat-card">
+                    <p>Lowest Price</p>
+                    <h3 id="minimumPrice">--</h3>
+                </article>
+                <article class="stat-card">
+                    <p>Average Area</p>
+                    <h3 id="averageArea">--</h3>
+                </article>
+            </div>
+
+            <div class="panel">
+                <h3>Average Property Prices by City</h3>
+                <div id="cityChart" class="chart"></div>
+            </div>
+
+            <div class="panel">
+                <h3>Available Sample Properties</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>City</th>
+                                <th>Type</th>
+                                <th>Area (sq ft)</th>
+                                <th>Beds</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="propertyTable">
+                            <tr><td colspan="5">Loading properties...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="predict" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">MACHINE LEARNING</p>
+                    <h2>Predict Property Price</h2>
+                </div>
+            </div>
+
+            <form id="predictionForm" class="panel form-grid">
+                <label>City
+                    <select id="city" required>
+                        <option>Karachi</option>
+                        <option>Lahore</option>
+                        <option>Islamabad</option>
+                        <option>Rawalpindi</option>
+                        <option>Faisalabad</option>
+                    </select>
+                </label>
+
+                <label>Property Type
+                    <select id="propertyType" required>
+                        <option>House</option>
+                        <option>Apartment</option>
+                        <option>Villa</option>
+                    </select>
+                </label>
+
+                <label>Area (sq ft)
+                    <input id="area" type="number" min="1" max="100000"
+                           value="1200" required>
+                </label>
+
+                <label>Bedrooms
+                    <input id="bedrooms" type="number" min="1" max="30"
+                           value="3" required>
+                </label>
+
+                <label>Bathrooms
+                    <input id="bathrooms" type="number" min="1" max="30"
+                           value="2" required>
+                </label>
+
+                <label>Property Age (years)
+                    <input id="age" type="number" min="0" max="200"
+                           value="5" required>
+                </label>
+
+                <button class="primary-btn" type="submit">Predict Price</button>
+                <p id="predictionResult" class="result" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section id="recommend" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">PERSONALIZED SEARCH</p>
+                    <h2>Find Recommended Properties</h2>
+                </div>
+            </div>
+
+            <form id="recommendForm" class="panel form-grid">
+                <label>City
+                    <select id="recCity">
+                        <option value="">All Cities</option>
+                        <option>Karachi</option>
+                        <option>Lahore</option>
+                        <option>Islamabad</option>
+                        <option>Rawalpindi</option>
+                        <option>Faisalabad</option>
+                    </select>
+                </label>
+
+                <label>Maximum Budget (PKR)
+                    <input id="budget" type="number" min="1"
+                           value="30000000" required>
+                </label>
+
+                <label>Minimum Bedrooms
+                    <select id="recBedrooms">
+                        <option value="">Any</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                    </select>
+                </label>
+
+                <label>Property Type
+                    <select id="recType">
+                        <option value="">Any Type</option>
+                        <option>House</option>
+                        <option>Apartment</option>
+                        <option>Villa</option>
+                    </select>
+                </label>
+
+                <button class="primary-btn" type="submit">
+                    Find Properties
+                </button>
+            </form>
+
+            <div id="recommendationResults" class="property-grid"></div>
+        </section>
+
+        <section id="assistant" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">GENERATIVE AI + RAG</p>
+                    <h2>Real Estate Assistant</h2>
+                </div>
+            </div>
+
+            <div class="panel chat-panel">
+                <p class="muted">Ask about property buying, budgeting,
+                    inspections, location, or property investment risks.</p>
+                <div id="chatMessages" class="chat-messages"
+                     aria-live="polite"></div>
+
+                <form id="chatForm" class="chat-form">
+                    <input id="question" type="text" maxlength="1500"
+                           minlength="3"
+                           placeholder="e.g. What should I check before buying a house?"
+                           required>
+                    <button class="primary-btn" type="submit">Ask AI</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <p>EstateAI · Academic demonstration project</p>
+            <p>Predictions use synthetic data and are not professional valuations.</p>
+        </footer>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
